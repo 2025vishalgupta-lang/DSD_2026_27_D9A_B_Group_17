@@ -8,7 +8,7 @@
 | Group leader | Vishal Gupta | D9B-15 | 2025vishalgupta-lang |
 | Member 2 | Kabir Chaudhary | D9B-05 | kabirchaudhary2611-bot |
 | Member 3 | Jyotirmayee Barik | D9A-03 | Jyotir14-hub |
-| Member 4 | Ameya Memane | D9A-05 | ameyamemane |
+| Member 4 | Ameya Memane | D9A-34 | ameyamemane |
 
 **Class:** [D9A/D9B]  
 **Group ID:** D9A_B_Group17  
