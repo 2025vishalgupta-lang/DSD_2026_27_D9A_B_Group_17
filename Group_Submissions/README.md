@@ -5,10 +5,10 @@
 ## 1. Team Details
 | Role | Student name | Roll number | GitHub username |
 |---|---|---|---|
-| Group leader | [Name] | [Roll no.] | [Username] |
-| Member 2 | [Name] | [Roll no.] | [Username] |
-| Member 3 | [Name] | [Roll no.] | [Username] |
-| Member 4 | [Name] | [Roll no.] | [Username] |
+| Group leader | Vishal Gupta | D9B-15 | 2025vishalgupta-lang |
+| Member 2 | Kabir Chaudhary | D9B-05 | kabirchaudhary2611-bot |
+| Member 3 | Jyotirmayee Barik | D9A-03 | Jyotir14 |
+| Member 4 | [Name] | D9A-05 | [Username] |
 
 **Class:** [D9A/D9B]  
 **Group ID:** [e.g. D9A_Group01]  
