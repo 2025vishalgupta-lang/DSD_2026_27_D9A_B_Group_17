@@ -7,16 +7,16 @@
 |---|---|---|---|
 | Group leader | Vishal Gupta | D9B-15 | 2025vishalgupta-lang |
 | Member 2 | Kabir Chaudhary | D9B-05 | kabirchaudhary2611-bot |
-| Member 3 | Jyotirmayee Barik | D9A-03 | Jyotir14 |
-| Member 4 | [Name] | D9A-05 | [Username] |
+| Member 3 | Jyotirmayee Barik | D9A-03 | Jyotir14-hub |
+| Member 4 | Ameya Memane | D9A-05 | ameyamemane |
 
 **Class:** [D9A/D9B]  
-**Group ID:** [e.g. D9A_Group01]  
-**Repository URL:** [Fork URL]  
+**Group ID:** D9A_B_Group17  
+**Repository URL:** https://github.com/2025vishalgupta-lang/DSD_2026_27_D9A_B_Group_17.git  
 **Final Pull Request URL:** [URL]
 
 ## 2. Assigned Problem Statement
-- **Number/title:** [Details]
+- **Number/title:** 5H3 - Fibonacci number detector
 - **Problem summary:** [In your own words]
 - **Objective:** [What must the system achieve?]
 - **Inputs and outputs:** [List signals, widths and meaning]
@@ -46,7 +46,7 @@ State whether the design uses an FSM. If yes, specify Moore/Mealy, states/encodi
 - Screenshot/evidence: [Path/link]
 
 ## 7. Verilog HDL Implementation
-- Tool/version: [Details]
+- Tool/version: AMD Xilinx Vivado 2018.2
 - Top module and submodules: [Names]
 - Architecture/coding decisions: [Details]
 - Synthesizability considerations: [Details]
