@@ -17,8 +17,8 @@
 
 ## 2. Assigned Problem Statement
 - **Number/title:** 5H3 - Fibonacci number detector
-- **Problem summary:** [In your own words]
-- **Objective:** [What must the system achieve?]
+- **Problem summary:** to detect the Fibonacci numbers between 1 to 15 by adding an extra state i.e the error state 
+- **Objective:** the circuit should be over come the problem of error means it should come to its ideal state 
 - **Inputs and outputs:** [List signals, widths and meaning]
 - **Constraints and assumptions:** [List and justify]
 
