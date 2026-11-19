@@ -5,10 +5,10 @@
 ## 1. Team Details
 | Role | Student name | Roll number | GitHub username |
 |---|---|---|---|
-| Group leader | [Name] | [Roll no.] | [Username] |
-| Member 2 | [Name] | [Roll no.] | [Username] |
-| Member 3 | [Name] | [Roll no.] | [Username] |
-| Member 4 | [Name] | [Roll no.] | [Username] |
+| Group leader | Vishal Gupta | 15 | 2025vishalgupta-lang |
+| Member 2 | Kabir Chaudhary | 5 | kabirchaudhary2611-bot |
+| Member 3 | Jyotirmayee Barik | 3 | Jyoti14-hub |
+| Member 4 | Ameya Memane | 34 | ameyamemane |
 
 **Class:** [D9A/D9B]  
 **Group ID:** [e.g. D9A_Group01]  
@@ -16,7 +16,7 @@
 **Final Pull Request URL:** [URL]
 
 ## 2. Assigned Problem Statement
-- **Number/title:** [Details]
+- **Number/title:** 5.FIBONACCI NUMBER DEYECTOR
 - **Problem summary:** [In your own words]
 - **Objective:** [What must the system achieve?]
 - **Inputs and outputs:** [List signals, widths and meaning]
