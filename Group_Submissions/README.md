@@ -192,10 +192,10 @@ Future improvements: [Details]
 ## 11. Task Allocation and Individual Contribution
 | Student | Assigned responsibility | Actual contribution/evidence |
 |---|---|---|
-| Group leader | [ ] | [ ] |
-| Member 2 | [ ] | [ ] |
-| Member 3 | [ ] | [ ] |
-| Member 4 | [ ] | [ ] |
+| Group leader | [ Vishal Gupta ] | [Making RTL_design,TB_design,XDC_file ] |
+| Member 2 | [Kabir Chaudhary ] | [Making PPT ] |
+| Member 3 | [Jyotirmayee Barik ] | [Making Logisim ] |
+| Member 4 | [Ameya Memane ] | [Implemntation on Hardware ] |
 
 Every student must be ready to explain the complete design.
 
