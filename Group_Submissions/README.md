@@ -23,10 +23,43 @@
 - **Constraints and assumptions:** [List and justify]
 
 ## 3. Problem Analysis and Proposed Solution
-Explain the requirements, edge cases, proposed solution, distinctive features and why the design is feasible.
 
-[Write here]
+Requirements
 
+The program must read a single non-negative integer n and report whether it belongs to the Fibonacci sequence (0, 1, 1, 2, 3, 5, 8, ...). It must give an exact answer for very large inputs (up to 10¹⁸), run in effectively constant time without generating the whole sequence, and handle invalid input (negative numbers, non-integers, empty input) without crashing.
+
+Edge Cases
+n = 0 and n = 1: Both are Fibonacci numbers by definition. A solution that starts its loop from 2 or hard-codes the wrong start would fail here.
+n = 2: The first value that sits just past the repeated 1, 1. It checks that the test doesn’t depend on the duplicate 1.
+Negative numbers: Never Fibonacci, so they are rejected as invalid or answered “No”.
+Very large n: 5n² reaches about 5 × 10³⁶, which overflows 64-bit integers in languages like C++ or Java. Floating-point square roots also lose precision at this size and can wrongly accept or reject a value.
+Numbers adjacent to Fibonacci numbers (e.g. 7, 9, 143, 145): These test that the square check is exact rather than approximate.
+Invalid input: Text, decimals such as 8.5, or blank lines.
+Proposed Solution
+
+The solution relies on a known property: a non-negative integer n is a Fibonacci number if and only if 5n² + 4 or 5n² − 4 is a perfect square.
+
+Steps:
+
+Validate that the input is a non-negative integer.
+Compute s = 5n².
+Test whether s + 4 or s − 4 is a perfect square. A value is a perfect square if its integer square root r satisfies r × r == value. Negative values (which occur only for n = 0 in s − 4) are skipped.
+Print Yes if either test passes, otherwise No.
+
+The property comes from the identity L(k)² − 5F(k)² = 4(−1)ᵏ, where L is the Lucas sequence. Every Fibonacci number therefore makes one of the two expressions a perfect square, and the converse is a known result that makes the test exact.
+
+Distinctive Features
+No sequence generation: The answer comes from a closed-form arithmetic test instead of building the sequence, so cost doesn’t grow with the position of n in the sequence.
+Exact integer arithmetic: Using an integer square root (math.isqrt in Python) avoids the rounding errors of sqrt() with floats.
+Built-in cross-check: A simple iterative generator (add terms until the value reaches or passes n) provides an independent method for testing, and the two can be compared over a large range of inputs.
+Graceful input handling: Invalid input produces a clear message instead of a crash or a wrong answer.
+Why the Design Is Feasible
+Computationally cheap: The method needs a few multiplications, additions and one or two integer square roots. Even for 10¹⁸, the intermediate value is about 37 digits, which Python’s arbitrary-precision integers handle natively. In C++ or Java, __int128 or BigInteger covers it.
+Efficient fallback: The sequence grows exponentially, so only about 88 Fibonacci numbers fall below 10¹⁸. The iterative alternative therefore needs under 90 steps, which is also fast enough for any realistic input.
+Low resource use: Only a handful of variables are stored, so memory is O(1).
+Simple to verify: The logic is short, and the edge cases can be checked by hand (for example, n = 8 gives 5·64 + 4 = 324 = 18²), which makes testing and explanation straightforward.
+
+I can also fit this into a Word or PDF document, or shorten it to match a word limit if your submission has one.
 ## 4. Architecture
 Insert/link the block diagram and explain modules, data/control flow and design trade-offs.
 
