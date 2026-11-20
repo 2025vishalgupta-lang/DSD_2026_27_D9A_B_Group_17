@@ -62,8 +62,9 @@ Simple to verify: The logic is short, and the edge cases can be checked by hand 
 I can also fit this into a Word or PDF document, or shorten it to match a word limit if your submission has one.
 ## 4. Architecture
 Insert/link the block diagram and explain modules, data/control flow and design trade-offs.
+<img width="1540" height="603" alt="WhatsApp Image 2026-11-20 at 12 27 07 PM" src="https://github.com/user-attachments/assets/3d5e9e23-6f40-48a2-a5aa-e2e6f3e44528" />
 
-![Block diagram](path/to/block_diagram.png)
+
 
 ## 5. FSM Design
 State whether the design uses an FSM. If yes, specify Moore/Mealy, states/encoding, state diagram, state table, transition conditions and reset behaviour. If not, justify the alternative.
