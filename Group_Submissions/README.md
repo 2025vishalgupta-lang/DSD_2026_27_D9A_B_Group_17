@@ -23,20 +23,128 @@
 - **Constraints and assumptions:** [List and justify]
 
 ## 3. Problem Analysis and Proposed Solution
-Explain the requirements, edge cases, proposed solution, distinctive features and why the design is feasible.
 
-[Write here]
+Requirements
 
+The program must read a single non-negative integer n and report whether it belongs to the Fibonacci sequence (0, 1, 1, 2, 3, 5, 8, ...). It must give an exact answer for very large inputs (up to 10¹⁸), run in effectively constant time without generating the whole sequence, and handle invalid input (negative numbers, non-integers, empty input) without crashing.
+
+Edge Cases
+n = 0 and n = 1: Both are Fibonacci numbers by definition. A solution that starts its loop from 2 or hard-codes the wrong start would fail here.
+n = 2: The first value that sits just past the repeated 1, 1. It checks that the test doesn’t depend on the duplicate 1.
+Negative numbers: Never Fibonacci, so they are rejected as invalid or answered “No”.
+Very large n: 5n² reaches about 5 × 10³⁶, which overflows 64-bit integers in languages like C++ or Java. Floating-point square roots also lose precision at this size and can wrongly accept or reject a value.
+Numbers adjacent to Fibonacci numbers (e.g. 7, 9, 143, 145): These test that the square check is exact rather than approximate.
+Invalid input: Text, decimals such as 8.5, or blank lines.
+Proposed Solution
+
+The solution relies on a known property: a non-negative integer n is a Fibonacci number if and only if 5n² + 4 or 5n² − 4 is a perfect square.
+
+Steps:
+
+Validate that the input is a non-negative integer.
+Compute s = 5n².
+Test whether s + 4 or s − 4 is a perfect square. A value is a perfect square if its integer square root r satisfies r × r == value. Negative values (which occur only for n = 0 in s − 4) are skipped.
+Print Yes if either test passes, otherwise No.
+
+The property comes from the identity L(k)² − 5F(k)² = 4(−1)ᵏ, where L is the Lucas sequence. Every Fibonacci number therefore makes one of the two expressions a perfect square, and the converse is a known result that makes the test exact.
+
+Distinctive Features
+No sequence generation: The answer comes from a closed-form arithmetic test instead of building the sequence, so cost doesn’t grow with the position of n in the sequence.
+Exact integer arithmetic: Using an integer square root (math.isqrt in Python) avoids the rounding errors of sqrt() with floats.
+Built-in cross-check: A simple iterative generator (add terms until the value reaches or passes n) provides an independent method for testing, and the two can be compared over a large range of inputs.
+Graceful input handling: Invalid input produces a clear message instead of a crash or a wrong answer.
+Why the Design Is Feasible
+Computationally cheap: The method needs a few multiplications, additions and one or two integer square roots. Even for 10¹⁸, the intermediate value is about 37 digits, which Python’s arbitrary-precision integers handle natively. In C++ or Java, __int128 or BigInteger covers it.
+Efficient fallback: The sequence grows exponentially, so only about 88 Fibonacci numbers fall below 10¹⁸. The iterative alternative therefore needs under 90 steps, which is also fast enough for any realistic input.
+Low resource use: Only a handful of variables are stored, so memory is O(1).
+Simple to verify: The logic is short, and the edge cases can be checked by hand (for example, n = 8 gives 5·64 + 4 = 324 = 18²), which makes testing and explanation straightforward.
+
+I can also fit this into a Word or PDF document, or shorten it to match a word limit if your submission has one.
 ## 4. Architecture
 Insert/link the block diagram and explain modules, data/control flow and design trade-offs.
+<img width="1540" height="603" alt="WhatsApp Image 2026-11-20 at 12 27 07 PM" src="https://github.com/user-attachments/assets/3d5e9e23-6f40-48a2-a5aa-e2e6f3e44528" />
 
-![Block diagram](path/to/block_diagram.png)
+
 
 ## 5. FSM Design
 State whether the design uses an FSM. If yes, specify Moore/Mealy, states/encoding, state diagram, state table, transition conditions and reset behaviour. If not, justify the alternative.
+<img width="1162" height="1149" alt="WhatsApp Image 2026-11-20 at 12 27 57 PM" src="https://github.com/user-attachments/assets/5765dca8-f70d-4927-b172-bba893862be6" />
 
-**Diagram:** [Path/link]  
-**State table:** [Path/link]
+
+## FSM STATE TRANSITION TABLE
+
+### 1. State Transition Table
+
+| Present State | START | valid | F | ACK | Next State |
+|:-------------:|:-----:|:-----:|:-:|:---:|:----------:|
+| IDLE          |   0   |   X   | X |  X  | IDLE       |
+| IDLE          |   1   |   1   | 1 |  X  | FIB        |
+| IDLE          |   1   |   1   | 0 |  X  | NON_FIB    |
+| IDLE          |   1   |   0   | X |  X  | ERROR      |
+| FIB           |   X   |   X   | X |  0  | FIB        |
+| FIB           |   X   |   X   | X |  1  | IDLE       |
+| NON_FIB       |   X   |   X   | X |  0  | NON_FIB    |
+| NON_FIB       |   X   |   X   | X |  1  | IDLE       |
+| ERROR         |   X   |   X   | X |  0  | ERROR      |
+| ERROR         |   X   |   X   | X |  1  | IDLE       |
+
+> **X = Don't Care** (0 or 1)
+
+---
+
+### 2. Output Table (Moore Machine)
+
+| State   | fib_led | nonfib_led | error_led |
+|:-------:|:-------:|:----------:|:---------:|
+| IDLE    |    0    |     0      |     0     |
+| FIB     |    1    |     0      |     0     |
+| NON_FIB |    0    |     1      |     0     |
+| ERROR   |    0    |     0      |     1     |
+
+---
+
+### 3. State Description
+
+| State   | Description                         |
+|:-------:|:------------------------------------|
+| IDLE    | All LEDs OFF                        |
+| FIB     | Fibonacci number detected           |
+| NON_FIB | Non-Fibonacci number detected       |
+| ERROR   | Invalid input detected              |
+
+---
+
+### 4. Transition Logic
+
+| Current State | Condition                  | Next State |
+|:-------------:|:--------------------------:|:----------:|
+| IDLE          | START = 0                  | IDLE       |
+| IDLE          | START = 1, valid = 1, F = 1 | FIB        |
+| IDLE          | START = 1, valid = 1, F = 0 | NON_FIB    |
+| IDLE          | START = 1, valid = 0       | ERROR      |
+| FIB           | ACK = 0                    | FIB        |
+| FIB           | ACK = 1                    | IDLE       |
+| NON_FIB       | ACK = 0                    | NON_FIB    |
+| NON_FIB       | ACK = 1                    | IDLE       |
+| ERROR         | ACK = 0                    | ERROR      |
+| ERROR         | ACK = 1                    | IDLE       |
+
+---
+
+### 5. Reset Condition
+
+| Reset Type | Action                         |
+|:----------:|:------------------------------|
+| Asynchronous | Immediately returns to IDLE |
+| Reset Output | All LEDs = 0                  |
+
+### 6. FSM Classification
+
+| Property | Value |
+|:--------:|:-----:|
+| FSM Type | Moore Machine |
+| Number of States | 4 |
+| Output Dependency | Present State |
 
 ## 6. Logisim Implementation
 - Logisim version: [Version]
@@ -84,10 +192,10 @@ Future improvements: [Details]
 ## 11. Task Allocation and Individual Contribution
 | Student | Assigned responsibility | Actual contribution/evidence |
 |---|---|---|
-| Group leader | [ ] | [ ] |
-| Member 2 | [ ] | [ ] |
-| Member 3 | [ ] | [ ] |
-| Member 4 | [ ] | [ ] |
+| Group leader | [ Vishal Gupta ] | [Making RTL_design,TB_design,XDC_file ] |
+| Member 2 | [Kabir Chaudhary ] | [Making PPT ] |
+| Member 3 | [Jyotirmayee Barik ] | [Making Logisim ] |
+| Member 4 | [Ameya Memane ] | [Implemntation on Hardware ] |
 
 Every student must be ready to explain the complete design.
 
