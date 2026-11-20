@@ -68,9 +68,83 @@ Insert/link the block diagram and explain modules, data/control flow and design 
 
 ## 5. FSM Design
 State whether the design uses an FSM. If yes, specify Moore/Mealy, states/encoding, state diagram, state table, transition conditions and reset behaviour. If not, justify the alternative.
+<img width="1162" height="1149" alt="WhatsApp Image 2026-11-20 at 12 27 57 PM" src="https://github.com/user-attachments/assets/5765dca8-f70d-4927-b172-bba893862be6" />
 
-**Diagram:** [Path/link]  
-**State table:** [Path/link]
+
+## FSM STATE TRANSITION TABLE
+
+### 1. State Transition Table
+
+| Present State | START | valid | F | ACK | Next State |
+|:-------------:|:-----:|:-----:|:-:|:---:|:----------:|
+| IDLE          |   0   |   X   | X |  X  | IDLE       |
+| IDLE          |   1   |   1   | 1 |  X  | FIB        |
+| IDLE          |   1   |   1   | 0 |  X  | NON_FIB    |
+| IDLE          |   1   |   0   | X |  X  | ERROR      |
+| FIB           |   X   |   X   | X |  0  | FIB        |
+| FIB           |   X   |   X   | X |  1  | IDLE       |
+| NON_FIB       |   X   |   X   | X |  0  | NON_FIB    |
+| NON_FIB       |   X   |   X   | X |  1  | IDLE       |
+| ERROR         |   X   |   X   | X |  0  | ERROR      |
+| ERROR         |   X   |   X   | X |  1  | IDLE       |
+
+> **X = Don't Care** (0 or 1)
+
+---
+
+### 2. Output Table (Moore Machine)
+
+| State   | fib_led | nonfib_led | error_led |
+|:-------:|:-------:|:----------:|:---------:|
+| IDLE    |    0    |     0      |     0     |
+| FIB     |    1    |     0      |     0     |
+| NON_FIB |    0    |     1      |     0     |
+| ERROR   |    0    |     0      |     1     |
+
+---
+
+### 3. State Description
+
+| State   | Description                         |
+|:-------:|:------------------------------------|
+| IDLE    | All LEDs OFF                        |
+| FIB     | Fibonacci number detected           |
+| NON_FIB | Non-Fibonacci number detected       |
+| ERROR   | Invalid input detected              |
+
+---
+
+### 4. Transition Logic
+
+| Current State | Condition                  | Next State |
+|:-------------:|:--------------------------:|:----------:|
+| IDLE          | START = 0                  | IDLE       |
+| IDLE          | START = 1, valid = 1, F = 1 | FIB        |
+| IDLE          | START = 1, valid = 1, F = 0 | NON_FIB    |
+| IDLE          | START = 1, valid = 0       | ERROR      |
+| FIB           | ACK = 0                    | FIB        |
+| FIB           | ACK = 1                    | IDLE       |
+| NON_FIB       | ACK = 0                    | NON_FIB    |
+| NON_FIB       | ACK = 1                    | IDLE       |
+| ERROR         | ACK = 0                    | ERROR      |
+| ERROR         | ACK = 1                    | IDLE       |
+
+---
+
+### 5. Reset Condition
+
+| Reset Type | Action                         |
+|:----------:|:------------------------------|
+| Asynchronous | Immediately returns to IDLE |
+| Reset Output | All LEDs = 0                  |
+
+### 6. FSM Classification
+
+| Property | Value |
+|:--------:|:-----:|
+| FSM Type | Moore Machine |
+| Number of States | 4 |
+| Output Dependency | Present State |
 
 ## 6. Logisim Implementation
 - Logisim version: [Version]
